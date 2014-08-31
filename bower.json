@@ -1,14 +1,14 @@
 {
-  "name": "seed-element",
-  "version": "0.0.0",
+  "name": "urban-login",
+  "version": "0.1.0",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Matt Styles <@personalurban>"
   ],
-  "description": "Element providing solution to no problem in particular.",
-  "keywords": "seed, polymer, web-components",
-  "main": "seed-element.html",
+  "description": "Login element with a loading state",
+  "keywords": "login, urban, polymer, web-components",
+  "main": "urban-login.html",
   "license": "MIT",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/mattstyles/urban-login/",
   "ignore": [
     "**/.*"
   ],
