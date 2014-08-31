@@ -13,15 +13,18 @@ paper-button {
     width: 100%;
 }
 
-urban-login > .transparent {
+urban-login > .transparent,
+:host .transparent {
     opacity: 0;
 }
 
-urban-login > .hidden {
+urban-login > .hidden,
+:host .hidden {
     display: none;
 }
 
-urban-login > .disable {
+urban-login > .disable,
+:host .disable {
     pointer-events: none;
 }
 
