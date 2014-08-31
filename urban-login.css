@@ -1,10 +1,53 @@
 :host {
-  display: block;
+    position: relative;
+    display: inline-block;
+    width: 100%;
 }
 
-/* To ensure your styling works under the Shadow DOM polyfill, see
-   www.polymer-project.org/docs/polymer/styling.html#directives */
-polyfill-next-selector { content: ':host > h2'; }
-::content h2 {
-  color: blue;
+paper-button {
+    /*text-align: center;*/
+    /*position: absolute;*/
+    line-height: 2em;
+    font-size: 26px;
+    color: #fdfdfa;
+    width: 100%;
+}
+
+urban-login > .transparent {
+    opacity: 0;
+}
+
+urban-login > .hidden {
+    display: none;
+}
+
+urban-login > .disable {
+    pointer-events: none;
+}
+
+:host #container {
+    position: relative;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+urban-login > #loadState {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+urban-login > #spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,-50%,0);
+}
+
+urban-login > #spinner svg {
+    /*fill: white;*/
 }

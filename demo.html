@@ -1,20 +1,50 @@
 <!doctype html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>seed-element Demo</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>Urban-login Demo</title>
 
-  <script src="../platform/platform.js"></script>
-  <link rel="import" href="seed-element.html">
+    <script src="../platform/platform.js"></script>
+    <link rel="import" href="urban-login.html">
+
+    <link rel="import" href="../urban-icons/urban-icons.html">
+
+    <style media="screen">
+        body {
+            font-family: 'Helvetica Neue', Helvetica, 'Lucida Grande', Tahoma, 'Droid Sans', sans-serif;
+            font-size: 15px;
+            color: #3a3a3a;
+            -webkit-font-smoothing: antialiased;
+            padding: 20px;
+        }
+
+        .container {
+            width: 480px;
+        }
+
+        #login /deep/ paper-button {
+            color: #333;
+        }
+
+    </style>
 
 </head>
 <body unresolved>
 
-  <p>An example of using <code>&lt;seed-element></code>:</p>
+    <p>An example of using <code>&lt;urban-login></code>:</p>
 
-  <seed-element>
-    <h2>Hello seed-element</h2>
-  </seed-element>
+    <div class="container">
+
+        <urban-icons></urban-icons>
+
+        <urban-login id="text-login" label="Just Text"></urban-login>
+
+
+        <urban-login id="login" label="Login" loadState="true">
+            <core-icon id="spinner" class="disable transparent" icon="urban:loading"></icon>
+        </urban-login>
+
+    </div>
 
 </body>
 </html>
