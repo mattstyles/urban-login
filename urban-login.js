@@ -45,16 +45,18 @@
         },
 
         onShowLoad: function( event ) {
-            this.$.login.removeEventListener( 'webkitTransitionEnd', this.onShowLoad );
+            this.$.login.removeEventListener( 'transitionend', this.onShowLoad );
             this.$.loadState.classList.remove( 'disable', 'transparent' );
             this.$.loadState.classList.add( 'active' );
+            console.log( 'onShowLoad fired' );
         },
 
         onHideLoad: function( event ) {
-            this.$.loadState.removeEventListener( 'webkitTransitionEnd', this.onHideLoad );
+            this.$.loadState.removeEventListener( 'transitionend', this.onHideLoad );
             this.$.loadState.classList.remove( 'active' );
             this._loading = false;
             this.show();
+            console.log( 'onHideLoad fired' );
         },
 
 
@@ -81,7 +83,7 @@
             if ( !this.loadEl || this.loading ) return;
 
             this._loading = true;
-            this.$.login.addEventListener( 'webkitTransitionEnd', this.onShowLoad );
+            this.$.login.addEventListener( 'transitionend', this.onShowLoad );
             this.hide();
         },
 
@@ -90,7 +92,7 @@
 
             this.$.loadState.classList.add( 'disable', 'transparent' );
 
-            this.$.loadState.addEventListener( 'webkitTransitionEnd', this.onHideLoad );
+            this.$.loadState.addEventListener( 'transitionend', this.onHideLoad );
         }
 
     });

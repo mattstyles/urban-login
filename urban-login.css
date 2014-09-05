@@ -9,8 +9,8 @@ paper-button {
     /*position: absolute;*/
     line-height: 2em;
     font-size: 26px;
-    color: #fdfdfa;
     width: 100%;
+    color:#333;
 }
 
 urban-login > .transparent,
