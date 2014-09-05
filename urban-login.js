@@ -5,6 +5,7 @@
         _showing: false,
         _loading: false,
 
+        // core-icon element housing the loading spinner
         loadEl: null,
 
         /**
@@ -13,6 +14,7 @@
         ready: function() {
             console.log( 'Urban-login ready to rock' );
 
+            // Hard code to look for a core-icon for now
             this.loadEl = this.querySelector( 'core-icon' );
 
             // Simple dirty bindAll method so any methods invoked as a callback maintain scope to this object
@@ -21,7 +23,7 @@
                     try {
                         this[ method ] = this[ method ].bind( this );
                     } catch( err ) {
-                        console.log( 'method binding error', method, err );
+                        console.log( 'urban-login:: method binding error', method, err );
                     }
                 }
             }
@@ -48,7 +50,6 @@
             this.$.login.removeEventListener( 'transitionend', this.onShowLoad );
             this.$.loadState.classList.remove( 'disable', 'transparent' );
             this.loadEl.classList.add( 'active' );
-            console.log( 'onShowLoad' );
         },
 
         onHideLoad: function( event ) {
@@ -56,7 +57,6 @@
             this.loadEl.classList.remove( 'active' );
             this._loading = false;
             this.show();
-            console.log( 'onHideLoad' );
         },
 
 
@@ -90,9 +90,8 @@
         hideLoading: function() {
             if ( !this.loadEl || !this._loading ) return;
 
-            this.$.loadState.classList.add( 'disable', 'transparent' );
-
             this.$.loadState.addEventListener( 'transitionend', this.onHideLoad );
+            this.$.loadState.classList.add( 'disable', 'transparent' );
         }
 
     });
