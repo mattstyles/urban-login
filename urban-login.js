@@ -7,6 +7,7 @@
 
         // core-icon element housing the loading spinner
         loadEl: null,
+        spinAnimation: null,
 
         /**
          * Fired when Polymer has got the element ready
@@ -27,6 +28,18 @@
                     }
                 }
             }
+
+            // Create and store the icon spin animation
+            if ( this.loadEl ) {
+                this.spinAnimation = document.timeline.play( new Animation(
+                    this.loadEl,
+                    frames.spin, {
+                        duration: 400,
+                        iterations: 'Infinity'
+                    }
+                ));
+                this.spinAnimation.pause();
+            }
         },
 
 
@@ -41,22 +54,44 @@
         downAction: function( event ) {},
 
         upAction: function( event ) {
-            if ( !this._showing ) return;
+            if ( !this._showing || this._loading ) return;
 
             this.showLoading();
         },
 
         onShowLoad: function( event ) {
-            this.$.login.removeEventListener( 'transitionend', this.onShowLoad );
-            this.$.loadState.classList.remove( 'disable', 'transparent' );
-            this.loadEl.classList.add( 'active' );
+            // Show loadstate and animate in
+            this.$.loadState.classList.remove( 'transparent' );
+            document.timeline.play( new Animation(
+                this.$.loadState,
+                frames.show, {
+                    duration: 1000,
+                    fill: 'forwards'
+                }
+            ));
+
+            // Set the icon spinning
+            this.spinAnimation.play();
+
+            // Hide the login button
+            this.$.login.classList.add( 'disable' );
         },
 
         onHideLoad: function( event ) {
-            this.$.loadState.removeEventListener( 'transitionend', this.onHideLoad );
-            this.loadEl.classList.remove( 'active' );
-            this._loading = false;
-            this.show();
+            // Re-enable login button
+            this.$.login.classList.remove( 'disable' );
+
+            // Show login button
+            document.timeline.play( new Animation(
+                this.$.login,
+                frames.show, {
+                    duration: 1000,
+                    fill: 'forwards'
+                }
+            ));
+
+            // Stop the spinner animation from eating resources
+            this.spinAnimation.pause();
         },
 
 
@@ -64,34 +99,74 @@
          * State Management
          */
         show: function() {
-            if ( this._showing || this._loading ) return;
+            if ( this._showing ) return;
 
-            this.$.login.classList.remove( 'disable', 'transparent' );
+            this.$.container.classList.remove( 'disable', 'transparent' );
+
+            var anim = document.timeline.play( new Animation(
+                this.$.login,
+                frames.show, {
+                    duration: 1000,
+                    fill: 'forwards'
+                }
+            ));
+
             this._showing = true;
             this.fire( 'show' );
         },
 
         hide: function() {
-            if ( !this._showing || !this._loading ) return;
+            if ( !this._showing ) return;
 
-            this.$.login.classList.add( 'disable', 'transparent' );
-            this._showing = false;
-            this.fire( 'hide' );
+            var anim = document.timeline.play( new Animation(
+                this.$.login,
+                frames.hide, {
+                    duration: 1000,
+                    fill: 'forwards'
+                }
+            ));
+
+            anim.onfinish = function( event ) {
+                this.$.container.classList.add( 'disable', 'transparent' );
+                this._showing = false;
+                this.fire( 'hide' );
+            }.bind( this );
         },
 
         showLoading: function() {
             if ( !this.loadEl || this.loading ) return;
 
             this._loading = true;
-            this.$.login.addEventListener( 'transitionend', this.onShowLoad );
-            this.hide();
+            // this.$.login.addEventListener( 'webkitAnimationEnd', this.onShowLoad );
+            // this.$.login.classList.remove( 'in' );
+            // this.$.login.classList.add( 'out' );
+
+            var anim = document.timeline.play( new Animation(
+                this.$.login,
+                frames.hide, {
+                    duration: 1000,
+                    fill: 'forwards'
+                }
+            ));
+
+            anim.onfinish = this.onShowLoad;
         },
 
         hideLoading: function() {
             if ( !this.loadEl || !this._loading ) return;
 
-            this.$.loadState.addEventListener( 'transitionend', this.onHideLoad );
-            this.$.loadState.classList.add( 'disable', 'transparent' );
+            // this.$.loadState.addEventListener( 'transitionend', this.onHideLoad );
+            // this.$.loadState.classList.add( 'disable', 'transparent' );
+
+            var anim = document.timeline.play( new Animation(
+                this.$.loadState,
+                frames.hide, {
+                    duration: 1000,
+                    fill: 'forwards'
+                }
+            ));
+
+            anim.onfinish = this.onHideLoad;
         }
 
     });

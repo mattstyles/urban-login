@@ -22,8 +22,8 @@ Additionally provides a loading spinner and an error message.
 
         <link rel="stylesheet" href="urban-login.css" />
 
-        <div id="container">
-            <paper-button id="login" class="transparent disable transition" label="{{label}}" center></paper-button>
+        <div id="container" class="disable">
+            <paper-button id="login" label="{{label}}" center></paper-button>
 
             <template if="{{loadState}}">
                 <div id="loadState" class="disable transparent transition">
@@ -36,6 +36,8 @@ Additionally provides a loading spinner and an error message.
 
     </template>
 
+    <script src="../web-animations-js/web-animations.js"></script>
+    <script src="./anims.js"></script>
     <script src="./urban-login.js"></script>
 
 </polymer-element>
