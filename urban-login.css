@@ -63,3 +63,18 @@ urban-login > #loading svg {
     transition: .3s linear;
     -webkit-transition: .3s linear;
 }
+
+core-icon.active {
+    -webkit-animation: spin .5s linear infinite;
+    animation: spin .5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg) }
+    to { -webkit-transform: rotate(180deg) }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg) }
+    to { transform: rotate(180deg) }
+}

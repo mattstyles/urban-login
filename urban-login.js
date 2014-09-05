@@ -13,7 +13,7 @@
         ready: function() {
             console.log( 'Urban-login ready to rock' );
 
-            this.loadEl = this.querySelector( '#loading' );
+            this.loadEl = this.querySelector( 'core-icon' );
 
             // Simple dirty bindAll method so any methods invoked as a callback maintain scope to this object
             for ( method in this ) {
@@ -47,14 +47,16 @@
         onShowLoad: function( event ) {
             this.$.login.removeEventListener( 'transitionend', this.onShowLoad );
             this.$.loadState.classList.remove( 'disable', 'transparent' );
-            this.$.loadState.classList.add( 'active' );
+            this.loadEl.classList.add( 'active' );
+            console.log( 'onShowLoad' );
         },
 
         onHideLoad: function( event ) {
             this.$.loadState.removeEventListener( 'transitionend', this.onHideLoad );
-            this.$.loadState.classList.remove( 'active' );
+            this.loadEl.classList.remove( 'active' );
             this._loading = false;
             this.show();
+            console.log( 'onHideLoad' );
         },
 
 

@@ -27,7 +27,9 @@ Additionally provides a loading spinner and an error message.
 
             <template if="{{loadState}}">
                 <div id="loadState" class="disable transparent transition">
-                    <content></content>
+                    <div id="loading">
+                        <content></content>
+                    </div>
                 </div>
             </template>
         </div>
