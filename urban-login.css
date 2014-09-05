@@ -54,3 +54,8 @@ urban-login > #loading {
 urban-login > #loading svg {
     /*fill: white;*/
 }
+
+:host .transition {
+    transition: .3s linear;
+    -webkit-transition: .3s linear;
+}

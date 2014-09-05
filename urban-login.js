@@ -7,35 +7,66 @@
 
         loadEl: null,
 
+        /**
+         * Fired when Polymer has got the element ready
+         */
+        ready: function() {
+            console.log( 'Urban-login ready to rock' );
+
+            this.loadEl = this.querySelector( '#loading' );
+
+            // Simple dirty bindAll method so any methods invoked as a callback maintain scope to this object
+            for ( method in this ) {
+                if ( typeof this[ method ] === 'function' && !this.hasOwnProperty( method ) ) {
+                    try {
+                        this[ method ] = this[ method ].bind( this );
+                    } catch( err ) {
+                        console.log( 'method binding error', method, err );
+                    }
+                }
+            }
+        },
+
+
+        /**
+         * Events
+         */
         eventDelegates: {
             down: 'downAction',
             up: 'upAction'
         },
 
-
-        ready: function() {
-            console.log( 'Urban-login ready to rock' );
-
-            this.loadEl = this.querySelector( '#loading' );
-        },
-
-
-        downAction: function( event ) {
-            if ( !this._showing ) return;
-
-
-        },
+        downAction: function( event ) {},
 
         upAction: function( event ) {
-            console.log( 'urban login :: up action' );
+            if ( !this._showing ) return;
+
+            this.showLoading();
+        },
+
+        onShowLoad: function( event ) {
+            this.$.login.removeEventListener( 'webkitTransitionEnd', this.onShowLoad );
+            this.$.loadState.classList.remove( 'disable', 'transparent' );
+            this.$.loadState.classList.add( 'active' );
+        },
+
+        onHideLoad: function( event ) {
+            this.$.loadState.removeEventListener( 'webkitTransitionEnd', this.onHideLoad );
+            this.$.loadState.classList.remove( 'active' );
+            this._loading = false;
+            this.show();
         },
 
 
+        /**
+         * State Management
+         */
         show: function() {
             if ( this._showing || this._loading ) return;
 
             this.$.login.classList.remove( 'disable', 'transparent' );
             this._showing = true;
+            this.fire( 'show' );
         },
 
         hide: function() {
@@ -43,22 +74,23 @@
 
             this.$.login.classList.add( 'disable', 'transparent' );
             this._showing = false;
+            this.fire( 'hide' );
         },
 
         showLoading: function() {
             if ( !this.loadEl || this.loading ) return;
 
             this._loading = true;
+            this.$.login.addEventListener( 'webkitTransitionEnd', this.onShowLoad );
             this.hide();
-            this.loadEl.classList.remove( 'disable', 'transparent' );
         },
 
         hideLoading: function() {
             if ( !this.loadEl || !this._loading ) return;
 
-            this.loadEl.classList.add( 'disable', 'transparent' );
-            this._loading = false;
-            this.show();
+            this.$.loadState.classList.add( 'disable', 'transparent' );
+
+            this.$.loadState.addEventListener( 'webkitTransitionEnd', this.onHideLoad );
         }
 
     });

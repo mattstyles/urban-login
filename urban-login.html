@@ -23,10 +23,10 @@ Additionally provides a loading spinner and an error message.
         <link rel="stylesheet" href="urban-login.css" />
 
         <div id="container">
-            <paper-button id="login" class="transparent disable" label="{{label}}" center></paper-button>
+            <paper-button id="login" class="transparent disable transition" label="{{label}}" center></paper-button>
 
             <template if="{{loadState}}">
-                <div id="loadState">
+                <div id="loadState" class="disable transparent transition">
                     <content></content>
                 </div>
             </template>

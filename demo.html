@@ -40,10 +40,19 @@
         <urban-login id="text-login" label="Just Text"></urban-login>
 
         <urban-login id="login" label="Login" loadState="true">
-            <core-icon id="loading" class="disable transparent" icon="urban:loading"></icon>
+            <core-icon id="loading" icon="urban:loading"></icon>
         </urban-login>
 
     </div>
+
+    <script charset="utf-8">
+        var logins = document.querySelectorAll( 'urban-login' );
+        window.addEventListener( 'polymer-ready', function( event ) {
+            Array.prototype.forEach.call( logins, function( login ) {
+                login.show();
+            });
+        });
+    </script>
 
 </body>
 </html>
