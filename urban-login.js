@@ -48,7 +48,6 @@
             this.$.login.removeEventListener( 'transitionend', this.onShowLoad );
             this.$.loadState.classList.remove( 'disable', 'transparent' );
             this.$.loadState.classList.add( 'active' );
-            console.log( 'onShowLoad fired' );
         },
 
         onHideLoad: function( event ) {
@@ -56,7 +55,6 @@
             this.$.loadState.classList.remove( 'active' );
             this._loading = false;
             this.show();
-            console.log( 'onHideLoad fired' );
         },
 
 
