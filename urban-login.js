@@ -65,7 +65,7 @@
             document.timeline.play( new Animation(
                 this.$.loadState,
                 frames.show, {
-                    duration: 1000,
+                    duration: 200,
                     fill: 'forwards'
                 }
             ));
@@ -85,7 +85,7 @@
             document.timeline.play( new Animation(
                 this.$.login,
                 frames.show, {
-                    duration: 1000,
+                    duration: 200,
                     fill: 'forwards'
                 }
             ));
@@ -106,7 +106,7 @@
             var anim = document.timeline.play( new Animation(
                 this.$.login,
                 frames.show, {
-                    duration: 1000,
+                    duration: 200,
                     fill: 'forwards'
                 }
             ));
@@ -121,7 +121,7 @@
             var anim = document.timeline.play( new Animation(
                 this.$.login,
                 frames.hide, {
-                    duration: 1000,
+                    duration: 100,
                     fill: 'forwards'
                 }
             ));
@@ -137,14 +137,11 @@
             if ( !this.loadEl || this.loading ) return;
 
             this._loading = true;
-            // this.$.login.addEventListener( 'webkitAnimationEnd', this.onShowLoad );
-            // this.$.login.classList.remove( 'in' );
-            // this.$.login.classList.add( 'out' );
 
             var anim = document.timeline.play( new Animation(
                 this.$.login,
                 frames.hide, {
-                    duration: 1000,
+                    duration: 100,
                     fill: 'forwards'
                 }
             ));
@@ -155,13 +152,12 @@
         hideLoading: function() {
             if ( !this.loadEl || !this._loading ) return;
 
-            // this.$.loadState.addEventListener( 'transitionend', this.onHideLoad );
-            // this.$.loadState.classList.add( 'disable', 'transparent' );
+            this._loading = false;
 
             var anim = document.timeline.play( new Animation(
                 this.$.loadState,
                 frames.hide, {
-                    duration: 1000,
+                    duration: 100,
                     fill: 'forwards'
                 }
             ));
