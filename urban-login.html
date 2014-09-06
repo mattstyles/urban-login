@@ -22,11 +22,11 @@ Additionally provides a loading spinner and an error message.
 
         <link rel="stylesheet" href="urban-login.css" />
 
-        <div id="container" class="disable">
+        <div id="container" class="disable transparent">
             <paper-button id="login" label="{{label}}" center></paper-button>
 
             <template if="{{loadState}}">
-                <div id="loadState" class="disable transparent transition">
+                <div id="loadState" class="disable transparent">
                     <div id="loadIconWrapper">
                         <content></content>
                     </div>

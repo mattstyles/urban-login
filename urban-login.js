@@ -1,5 +1,9 @@
 (function( root ) {
 
+    var ANIM_OUT_SPD = 100,
+        ANIM_IN_SPD = 200,
+        ANIM_SPIN_SPD = 400;
+
     Polymer( 'urban-login', {
 
         _showing: false,
@@ -34,7 +38,7 @@
                 this.spinAnimation = document.timeline.play( new Animation(
                     this.loadEl,
                     frames.spin, {
-                        duration: 400,
+                        duration: ANIM_SPIN_SPD,
                         iterations: 'Infinity'
                     }
                 ));
@@ -65,7 +69,7 @@
             document.timeline.play( new Animation(
                 this.$.loadState,
                 frames.show, {
-                    duration: 200,
+                    duration: ANIM_IN_SPD,
                     fill: 'forwards'
                 }
             ));
@@ -80,12 +84,13 @@
         onHideLoad: function( event ) {
             // Re-enable login button
             this.$.login.classList.remove( 'disable' );
+            this.$.loadState.classList.add( 'transparent' );
 
             // Show login button
             document.timeline.play( new Animation(
                 this.$.login,
                 frames.show, {
-                    duration: 200,
+                    duration: ANIM_IN_SPD,
                     fill: 'forwards'
                 }
             ));
@@ -106,7 +111,7 @@
             var anim = document.timeline.play( new Animation(
                 this.$.login,
                 frames.show, {
-                    duration: 200,
+                    duration: ANIM_IN_SPD,
                     fill: 'forwards'
                 }
             ));
@@ -121,7 +126,7 @@
             var anim = document.timeline.play( new Animation(
                 this.$.login,
                 frames.hide, {
-                    duration: 100,
+                    duration: ANIM_OUT_SPD,
                     fill: 'forwards'
                 }
             ));
@@ -141,7 +146,7 @@
             var anim = document.timeline.play( new Animation(
                 this.$.login,
                 frames.hide, {
-                    duration: 100,
+                    duration: ANIM_OUT_SPD,
                     fill: 'forwards'
                 }
             ));
@@ -157,7 +162,7 @@
             var anim = document.timeline.play( new Animation(
                 this.$.loadState,
                 frames.hide, {
-                    duration: 100,
+                    duration: ANIM_OUT_SPD,
                     fill: 'forwards'
                 }
             ));
