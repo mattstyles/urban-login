@@ -4,14 +4,37 @@
         ANIM_IN_SPD = 200,
         ANIM_SPIN_SPD = 400;
 
+
     Polymer( 'urban-login', {
 
+        /**
+         * Is the element showing
+         *
+         * @type {Boolean}
+         */
         _showing: false,
+
+        /**
+         * Is the element in a loading state
+         *
+         * @type {Boolean}
+         */
         _loading: false,
 
-        // core-icon element housing the loading spinner
+        /**
+         * Holds the loading spinner icon if it has been supplied
+         *
+         * @type {core-icon element}
+         */
         loadEl: null,
+
+        /**
+         * The spin animation for the loading icon
+         *
+         * @type {AnimationPlayer}
+         */
         spinAnimation: null,
+
 
         /**
          * Fired when Polymer has got the element ready
@@ -47,22 +70,35 @@
         },
 
 
-        /**
-         * Events
-         */
+        /*-----------------------------------------------------------*\
+         *
+         *  Events
+         *
+        \*-----------------------------------------------------------*/
+
         eventDelegates: {
             down: 'downAction',
             up: 'upAction'
         },
 
+        /**
+         * Abstract for initial touch on element
+         */
         downAction: function( event ) {},
 
+        /**
+         * A click starts state transition to loading if the element is shown and not already loading
+         */
         upAction: function( event ) {
             if ( !this._showing || this._loading ) return;
 
             this.showLoading();
         },
 
+        /**
+         * Fired mid-way through the transition to loading
+         * This function shows the loading icon and starts it spinning
+         */
         onShowLoad: function( event ) {
             // Show loadstate and animate in
             this.$.loadState.classList.remove( 'transparent' );
@@ -81,6 +117,10 @@
             this.$.login.classList.add( 'disable' );
         },
 
+        /**
+         * Fired mid-way through the transition back to login from loading
+         * This function stops the spin animation and shows the login button
+         */
         onHideLoad: function( event ) {
             // Re-enable login button
             this.$.login.classList.remove( 'disable' );
@@ -100,8 +140,17 @@
         },
 
 
+        /*-----------------------------------------------------------*\
+         *
+         *  State Management
+         *
+        \*-----------------------------------------------------------*/
+
+
         /**
-         * State Management
+         * Shows the whole login element, transitions in the login button
+         *
+         * @event - emits a 'show' event
          */
         show: function() {
             if ( this._showing ) return;
@@ -120,6 +169,12 @@
             this.fire( 'show' );
         },
 
+
+        /**
+         * Hides the whole login element, after transitioning out the login button
+         *
+         * @event - emits a 'hide' event
+         */
         hide: function() {
             if ( !this._showing ) return;
 
@@ -138,10 +193,17 @@
             }.bind( this );
         },
 
+
+        /**
+         * State transition from displaying the login button to displaying the loading spinner if one exists
+         *
+         * @event - emits a 'loadStart' event
+         */
         showLoading: function() {
             if ( !this.loadEl || this.loading ) return;
 
             this._loading = true;
+            this.fire( 'loadStart' );
 
             var anim = document.timeline.play( new Animation(
                 this.$.login,
@@ -154,10 +216,17 @@
             anim.onfinish = this.onShowLoad;
         },
 
+
+        /**
+         * State transition from loading to login
+         *
+         * @event - emits a 'loadEnd' event
+         */
         hideLoading: function() {
             if ( !this.loadEl || !this._loading ) return;
 
             this._loading = false;
+            this.fire( 'loadEnd' );
 
             var anim = document.timeline.play( new Animation(
                 this.$.loadState,
