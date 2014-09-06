@@ -67,6 +67,11 @@
                 ));
                 this.spinAnimation.pause();
             }
+
+            // Start the element in the shown state
+            if ( this.startShowing ) {
+                this.show( true );
+            }
         },
 
 
@@ -150,9 +155,10 @@
         /**
          * Shows the whole login element, transitions in the login button
          *
+         * @param animate {Boolean} determines if the animation fires or not
          * @event - emits a 'show' event
          */
-        show: function() {
+        show: function( immediate ) {
             if ( this._showing ) return;
 
             this.$.container.classList.remove( 'disable', 'transparent' );
@@ -160,7 +166,7 @@
             var anim = document.timeline.play( new Animation(
                 this.$.login,
                 frames.show, {
-                    duration: ANIM_IN_SPD,
+                    duration: immediate ? 0 : ANIM_IN_SPD,
                     fill: 'forwards'
                 }
             ));

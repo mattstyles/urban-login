@@ -43,15 +43,19 @@
             <core-icon icon="urban:loading"></icon>
         </urban-login>
 
+        <urban-login id="showing" label="Starts Showing" startShowing="true"></urban-login>
+
     </div>
 
     <script charset="utf-8">
         var logins = document.querySelectorAll( 'urban-login' );
-        window.addEventListener( 'polymer-ready', function( event ) {
+        // window.addEventListener( 'polymer-ready', showLogins );
+
+        function showLogins( event ) {
             Array.prototype.forEach.call( logins, function( login ) {
                 login.show();
             });
-        });
+        }
     </script>
 
 </body>
