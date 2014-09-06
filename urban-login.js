@@ -7,65 +7,50 @@
 
     Polymer( 'urban-login', {
 
-        /**
-         * Is the element showing
-         *
-         * @type {Boolean}
-         */
-        _showing: false,
+        publish: {
+            /**
+             * Is the element showing
+             *
+             * @type {Boolean}
+             */
+            _showing: false,
 
-        /**
-         * Is the element in a loading state
-         *
-         * @type {Boolean}
-         */
-        _loading: false,
+            /**
+             * Is the element in a loading state
+             *
+             * @type {Boolean}
+             */
+            _loading: false,
 
-        /**
-         * Holds the loading spinner icon if it has been supplied
-         *
-         * @type {core-icon element}
-         */
-        loadEl: null,
+            /**
+             * Holds the loading spinner icon if it has been supplied
+             *
+             * @type {core-icon element}
+             */
+            loadEl: null,
 
-        /**
-         * The spin animation for the loading icon
-         *
-         * @type {AnimationPlayer}
-         */
-        spinAnimation: null,
+            /**
+             * The spin animation for the loading icon
+             *
+             * @type {AnimationPlayer}
+             */
+            spinAnimation: null,
+        },
 
 
         /**
          * Fired when Polymer has got the element ready
          */
         ready: function() {
-            console.log( 'Urban-login ready to rock' );
-
             // Hard code to look for a core-icon for now
             this.loadEl = this.querySelector( 'core-icon' );
 
             // Simple dirty bindAll method so any methods invoked as a callback maintain scope to this object
-            for ( method in this ) {
-                if ( typeof this[ method ] === 'function' && !this.hasOwnProperty( method ) ) {
-                    try {
-                        this[ method ] = this[ method ].bind( this );
-                    } catch( err ) {
-                        console.log( 'urban-login:: method binding error', method, err );
-                    }
-                }
-            }
+            this.bindAll( this );
 
             // Create and store the icon spin animation
             if ( this.loadEl ) {
-                this.spinAnimation = document.timeline.play( new Animation(
-                    this.loadEl,
-                    frames.spin, {
-                        duration: ANIM_SPIN_SPD,
-                        iterations: 'Infinity'
-                    }
-                ));
-                this.spinAnimation.pause();
+                this.createSpinAnimation();
             }
 
             // Start the element in the shown state
@@ -142,6 +127,11 @@
 
             // Stop the spinner animation from eating resources
             this.spinAnimation.pause();
+        },
+
+
+        onShow: function( event ) {
+            console.log( 'I am now showing' );
         },
 
 
@@ -243,6 +233,42 @@
             ));
 
             anim.onfinish = this.onHideLoad;
+        },
+
+
+        /*-----------------------------------------------------------*\
+         *
+         *  Helpers
+         *
+        \*-----------------------------------------------------------*/
+
+        /**
+         * Creates the spinning animation for the loading element
+         */
+        createSpinAnimation: function() {
+            this.spinAnimation = document.timeline.play( new Animation(
+                this.loadEl,
+                frames.spin, {
+                    duration: ANIM_SPIN_SPD,
+                    iterations: 'Infinity'
+                }
+            ));
+            this.spinAnimation.pause();
+        },
+
+        /**
+         * Simple, dirty bindAll implementation
+         */
+        bindAll: function( ctx ) {
+            for ( method in this ) {
+                if ( typeof this[ method ] === 'function' && !this.hasOwnProperty( method ) ) {
+                    try {
+                        this[ method ] = this[ method ].bind( ctx );
+                    } catch( err ) {
+                        console.log( 'urban-login:: method binding error', method, err );
+                    }
+                }
+            }
         }
 
     });
