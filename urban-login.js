@@ -90,6 +90,9 @@
          * This function shows the loading icon and starts it spinning
          */
         onShowLoad: function( event ) {
+            // Bug out if the loading has already been cancelled/finished
+            if ( !this._loading ) return;
+
             // Show loadstate and animate in
             this.$.loadState.classList.remove( 'transparent' );
             document.timeline.play( new Animation(
@@ -127,11 +130,6 @@
 
             // Stop the spinner animation from eating resources
             this.spinAnimation.pause();
-        },
-
-
-        onShow: function( event ) {
-            console.log( 'I am now showing' );
         },
 
 
