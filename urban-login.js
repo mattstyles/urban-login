@@ -48,7 +48,8 @@
             // Simple dirty bindAll method so any methods invoked as a callback maintain scope to this object
             this.bindAll( this );
 
-            // Create and store the icon spin animation
+            this.createAnimationFrames();
+
             if ( this.loadEl ) {
                 this.createSpinAnimation();
             }
@@ -97,7 +98,7 @@
             this.$.loadState.classList.remove( 'transparent' );
             document.timeline.play( new Animation(
                 this.$.loadState,
-                frames.show, {
+                this.frames.show, {
                     duration: ANIM_IN_SPD,
                     fill: 'forwards'
                 }
@@ -122,7 +123,7 @@
             // Show login button
             document.timeline.play( new Animation(
                 this.$.login,
-                frames.show, {
+                this.frames.show, {
                     duration: ANIM_IN_SPD,
                     fill: 'forwards'
                 }
@@ -153,7 +154,7 @@
 
             var anim = document.timeline.play( new Animation(
                 this.$.login,
-                frames.show, {
+                this.frames.show, {
                     duration: immediate ? 0 : ANIM_IN_SPD,
                     fill: 'forwards'
                 }
@@ -174,7 +175,7 @@
 
             var anim = document.timeline.play( new Animation(
                 this.$.login,
-                frames.hide, {
+                this.frames.hide, {
                     duration: ANIM_OUT_SPD,
                     fill: 'forwards'
                 }
@@ -201,7 +202,7 @@
 
             var anim = document.timeline.play( new Animation(
                 this.$.login,
-                frames.hide, {
+                this.frames.hide, {
                     duration: ANIM_OUT_SPD,
                     fill: 'forwards'
                 }
@@ -224,7 +225,7 @@
 
             var anim = document.timeline.play( new Animation(
                 this.$.loadState,
-                frames.hide, {
+                this.frames.hide, {
                     duration: ANIM_OUT_SPD,
                     fill: 'forwards'
                 }
@@ -246,13 +247,37 @@
         createSpinAnimation: function() {
             this.spinAnimation = document.timeline.play( new Animation(
                 this.loadEl,
-                frames.spin, {
+                this.frames.spin, {
                     duration: ANIM_SPIN_SPD,
                     iterations: 'Infinity'
                 }
             ));
             this.spinAnimation.pause();
         },
+
+
+        /**
+         * Creates the animation frames
+         */
+        createAnimationFrames: function() {
+            this.frames = {
+                show: new KeyframeEffect([
+                    { opacity: '0', transform: 'scale(.8,.8) translateY( 20 )' },
+                    { opacity: '1', transform: 'scale(1,1), translateY( 0 )' }
+                ]),
+
+                hide: new KeyframeEffect([
+                    { opacity: '1', transform: 'scale(1,1), translateY( 0 )' },
+                    { opacity: '0', transform: 'scale(0.8,0.8) translateY( -10 )' }
+                ]),
+
+                spin: new KeyframeEffect([
+                    { transform: 'rotate( 0 )' },
+                    { transform: 'rotate( 180 )' }
+                ])
+            };
+        },
+
 
         /**
          * Simple, dirty bindAll implementation
