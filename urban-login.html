@@ -36,6 +36,18 @@ Additionally provides a loading spinner and an error message.
 
     </template>
 
+    <script src="../traceur/traceur.js"></script>
+    <script src="../es6-module-loader/dist/es6-module-loader.js"></script>
+
+    <script type="module">
+         console.log( 'trying to load frames from anims' );
+        import { frames } from 'anims';
+        console.log( frames );
+        console.log( 'module tag being executed' );
+    </script>
+
+    <script src="./anims-inc.js" type="module"></script>
+
     <script src="../web-animations-js/web-animations.js"></script>
     <script src="./urban-login.js"></script>
 

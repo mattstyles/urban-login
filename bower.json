@@ -16,6 +16,7 @@
     "polymer": "Polymer/polymer#>=0.4.0 <1.0.0",
     "polymer-test-tools": "Polymer/polymer-test-tools#~0.3.3",
     "paper-button": "Polymer/paper-button#~0.4.0",
-    "web-animations-js": "git://github.com/web-animations/web-animations-js.git"
+    "web-animations-js": "git://github.com/web-animations/web-animations-js.git",
+    "es6-module-loader": "~0.8.2"
   }
 }

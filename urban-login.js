@@ -4,6 +4,19 @@
         ANIM_IN_SPD = 200,
         ANIM_SPIN_SPD = 400;
 
+    // System.import( './anims' )
+    //     .then( function( module ) {
+    //         // console.log( new module.q() );
+    //         console.log( module.frames );
+    //     })
+    //     .catch( function( err ) {
+    //         console.log( 'module load error:', err );
+    //     });
+
+    // import { q } from './anims';
+    //
+    // console.log( new q() );
+
 
     Polymer( 'urban-login', {
 

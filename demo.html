@@ -47,6 +47,16 @@
 
     </div>
 
+    <script src="../traceur/traceur.js"></script>
+    <script src="../es6-module-loader/dist/es6-module-loader.js"></script>
+
+
+    <!-- // <script src="anims-inc.js" type="module"></script> -->
+    <script type="module">
+        import { frames } from 'anims';
+        console.log( frames );
+    </script>
+
     <script charset="utf-8">
         var logins = document.querySelectorAll( 'urban-login' );
         // window.addEventListener( 'polymer-ready', showLogins );
